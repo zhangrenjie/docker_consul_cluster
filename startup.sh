@@ -1,16 +1,26 @@
 #!/bin/bash
+docker pull consul:latest;
+
 docker stop consul_server1_contanier;docker rm consul_server1_contanier;
 docker stop consul_server2_contanier;docker rm consul_server2_contanier;
 docker stop consul_server3_contanier;docker rm consul_server3_contanier;
 docker stop consul_client1_contanier;docker rm consul_client1_contanier;
 
-docker pull consul:latest;
-
+#根据个人环境设置本地consul集群用于存放配置、数据存储的目录路径
 LOCATION_DIR="/Users/17tech/wwwroot/test/consul/";
 
+#初始化目录
+if [ ! -d $LOCATION_DIR ];then
+  mkdir $LOCATION_DIR
+fi
 
-rm -rf $LOCATION_DIR/data;
-rm -rf $LOCATION_DIR/conf;
+if [ -d $LOCATION_DIR/data ];then
+  rm -rf $LOCATION_DIR/data;
+fi
+
+if [ -d $LOCATION_DIR/conf ];then
+  rm -rf $LOCATION_DIR/conf;
+fi
 
 mkdir -p $LOCATION_DIR/data/server1;
 mkdir -p $LOCATION_DIR/data/server2;
